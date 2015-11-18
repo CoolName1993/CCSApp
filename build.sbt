@@ -4,7 +4,7 @@ version := "1.0-SNAPSHOT"
 
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 
-scalaVersion := "2.11.6"
+scalaVersion := "2.11.7"
 
 libraryDependencies ++= Seq(
   jdbc,
@@ -19,4 +19,18 @@ resolvers += "scalaz-bintray" at "http://dl.bintray.com/scalaz/releases"
 // other, legacy style, accesses its actions statically.
 routesGenerator := InjectedRoutesGenerator
 
+// ScalaTest
 libraryDependencies += "org.scalatest" % "scalatest_2.11" % "2.2.4" % "test"
+
+// MongoDB
+libraryDependencies += "org.mongodb" % "casbah-core_2.11" % "3.0.0"
+libraryDependencies += "org.mongodb" % "casbah-commons_2.11" % "3.0.0"
+libraryDependencies += "org.mongodb" % "mongo-java-driver" % "3.1.0"
+libraryDependencies += "org.mongodb" % "casbah-query_2.11" % "3.0.0"
+libraryDependencies += "org.mongodb" % "casbah-gridfs_2.11" % "3.0.0"
+libraryDependencies += "org.mongodb" % "casbah_2.11" % "3.0.0" % "compile"
+
+// SQL
+libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.37"
+
+fork in run := true
