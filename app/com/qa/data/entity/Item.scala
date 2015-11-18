@@ -9,10 +9,11 @@ package com.qa.data.entity
  * @param isPorousware_ Whether the item has porousware.
  * @author cboucher
  */
-class Item(idItem_ : Any, itemName_ : String, imageLocation_ : String, isPorousware_ : Any) extends Entity {
+class Item(idItem_ : Any, itemName_ : String, imageLocation_ : String, isPorousware_ : Any, keyword_ : String) extends Entity {
   val tableName: String = "Item"
   val idItem = new Field("idItem", idItem_)
   val itemName = new Field("ItemName", itemName_)
   val imageLocation = new Field("ImageLocation", imageLocation_)
   val isPorousware = new Field("IsPorousware", isPorousware_)
+  val keyword = keyword_
 }

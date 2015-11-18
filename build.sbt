@@ -28,9 +28,9 @@ libraryDependencies += "org.mongodb" % "casbah-commons_2.11" % "3.0.0"
 libraryDependencies += "org.mongodb" % "mongo-java-driver" % "3.1.0"
 libraryDependencies += "org.mongodb" % "casbah-query_2.11" % "3.0.0"
 libraryDependencies += "org.mongodb" % "casbah-gridfs_2.11" % "3.0.0"
+libraryDependencies += "org.mongodb" % "bson" % "3.1.1"
 libraryDependencies += "org.mongodb" % "casbah_2.11" % "3.0.0" % "compile"
 
 // SQL
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.37"
-
 fork in run := true

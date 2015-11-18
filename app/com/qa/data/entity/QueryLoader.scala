@@ -1,7 +1,7 @@
 package com.qa.data.entity
 
-import com.qa.data.sql.SQLConnector
 import com.qa.data.mongo.MongoConnector
+import com.qa.data.sql.SQLConnector
 
 /**
  * Contains all queries required for the application.
@@ -18,13 +18,13 @@ object QueryLoader {
     val searchOrder = new CustomerOrder(selectedCustomerOrder.idCustomerOrder.getValue, null, null, null, null, null, null, null)
     val searchValues = Array(selectedCustomerOrder.idCustomerOrder, selectedCustomerOrder.datePlaced, selectedCustomerOrder.dateShipped, selectedCustomerOrder.isPaid, selectedCustomerOrder.idAddress, selectedCustomerOrder.idCustomerOrderStatus, selectedCustomerOrder.idEmployee, selectedCustomerOrder.idCustomer)
     val currentOrders = SQLConnector.read(searchOrder.tableName, searchValues)
-    println(currentOrders.size)
-    if (currentOrders.size > 0) {
-      var output = new Array[CustomerOrder](currentOrders.length)
+    println(currentOrders.length)
+    if (currentOrders.length > 0) {
+      val output = new Array[CustomerOrder](currentOrders.length)
       def loop(i: Int) {
-        if (i < currentOrders.size) {
+        if (i < currentOrders.length) {
           output(i) = EntityConvertor.convertToCustomerOrder(currentOrders(i))
-          loop(i + (1))
+          loop(i + 1)
         }
       }
       loop(0)
@@ -43,12 +43,12 @@ object QueryLoader {
     val searchOrderLine = new CustomerOrderLine(null, selectedCustomerOrder.idCustomerOrder.getValue, null)
     val searchValues = Array(searchOrderLine.idItem, searchOrderLine.idCustomerOrder, searchOrderLine.quantity)
     val currentOrderLines = SQLConnector.read(searchOrderLine.tableName, searchValues)
-    if (currentOrderLines.size > 0) {
-      var output = new Array[CustomerOrderLine](currentOrderLines.length)
+    if (currentOrderLines.length > 0) {
+      val output = new Array[CustomerOrderLine](currentOrderLines.length)
       def loop(i: Int) {
-        if (i < currentOrderLines.size) {
+        if (i < currentOrderLines.length) {
           output(i) = EntityConvertor.convertToCustomerOrderLine(currentOrderLines(i))
-          loop(i + (1))
+          loop(i + 1)
         }
       }
       loop(0)
@@ -67,12 +67,12 @@ object QueryLoader {
     val searchLocation = new Location(null, selectedItem.idItem.getValue, null, null, null)
     val searchValues = Array(searchLocation.idLocation, searchLocation.idItem, searchLocation.row, searchLocation.col, searchLocation.quantity)
     val currentLocations = SQLConnector.read(searchLocation.tableName, searchValues)
-    if (currentLocations.size > 0) {
-      var output = new Array[Location](currentLocations.size)
+    if (currentLocations.length > 0) {
+      val output = new Array[Location](currentLocations.length)
       def loop(i: Int) {
-        if (i < currentLocations.size) {
+        if (i < currentLocations.length) {
           output(i) = EntityConvertor.convertToLocation(currentLocations(i))
-          loop(i + (1))
+          loop(i + 1)
         }
       }
       loop(0)
@@ -91,8 +91,8 @@ object QueryLoader {
     val searchUser = new User(selectedUser.idUser.getValue.asInstanceOf[Int], selectedUser.password.getValue.asInstanceOf[String], null, null, null, 1)
     val searchValues = Array(searchUser.idUser, searchUser.password, searchUser.forename, searchUser.surname, searchUser.email, searchUser.isEmployee)
     val currentUser = SQLConnector.read(searchUser.tableName, searchValues)
-    if (currentUser.size != 0) {
-      var output = EntityConvertor.convertToUser(currentUser(0))
+    if (currentUser.length != 0) {
+      val output = EntityConvertor.convertToUser(currentUser(0))
       output
     } else {
       null
@@ -107,8 +107,8 @@ object QueryLoader {
   def searchItem(selectedItem: Item): Item = {
     val searchValues = Array(selectedItem.idItem)
     val currentItem = MongoConnector.read(selectedItem.tableName, searchValues)
-    if (currentItem.size != 0) {
-      var output = EntityConvertor.convertToItem(currentItem(0))
+    if (currentItem.length != 0) {
+      val output = EntityConvertor.convertToItem(currentItem(0))
       output
     } else {
       null

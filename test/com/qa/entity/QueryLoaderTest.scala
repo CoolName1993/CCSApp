@@ -19,7 +19,7 @@ class QueryLoaderTest extends TestBase {
   
   
   "searchLocation" should "return the results of a search into an array of locations" in {
-    val results = QueryLoader.searchLocation(new Item(1,null,null,null))
+    val results = QueryLoader.searchLocation(new Item(1, null, null, null, null))
     assert(results.length > 0)
   }
   
@@ -30,7 +30,7 @@ class QueryLoaderTest extends TestBase {
   }
   
   "searchItem" should "return the results of a search into an item object" in {
-    val result = QueryLoader.searchItem(new Item(1,null,null,null))
+    val result = QueryLoader.searchItem(new Item(1, null, null, null, null))
     assert(result.idItem.getValue.equals(1))
   }
 }

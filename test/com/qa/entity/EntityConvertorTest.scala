@@ -1,8 +1,9 @@
 package com.qa.data.entity
 
-import com.qa.TestBase
 import java.sql.Date
+
 import com.mongodb.casbah.Imports._
+import com.qa.TestBase
 
 /**
  * @author cboucher
@@ -61,14 +62,18 @@ class EntityConvertorTest extends TestBase {
   
   "convertToItem" should "convert raw data into an item object" in {
     val item = MongoDBObject.empty
+    val attributes = new BasicDBObject
+    attributes.put("Keyword", "Gnome")
     item.put("idItem", 0)
     item.put("ItemName", "Test")
     item.put("ImageLocation", "/test")
     item.put("IsPorousware", false)
+    item.put("Attributes", attributes)
     val result = EntityConvertor.convertToItem(item)
     assert(result.idItem.getValue.equals(0))
     assert(result.itemName.getValue.equals("Test"))
     assert(result.imageLocation.getValue.equals("/test"))
     assert(result.isPorousware.getValue.equals(false))
+    assert(result.keyword.equals("Gnome"))
   }
 }
