@@ -1,0 +1,12 @@
+@(items: Array[com.qa.data.entity.Item])(implicit lang: Lang)
+@import play.api.Play.current
+@import play.api.i18n.Messages.Implicits._
+@import com.qa.view.template.html.main
+@main(Messages("application.name")) {
+<dl class="products">
+    @for(item <- items) {
+    <dt>@item.idItem.getValue</dt>
+    <dd>@item.itemName.getValue</dd>
+    }
+</dl>
+}

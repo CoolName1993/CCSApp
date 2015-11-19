@@ -1,0 +1,13 @@
+@(item: com.qa.data.entity.Item)(implicit lang: Lang)
+@import play.api.Play.current
+@import play.api.i18n.Messages.Implicits._
+@import com.qa.view.template.html.main
+@main(Messages("application.name")) {
+<dl class="products">
+    <dt>Item ID: @item.idItem.getValue</dt>
+    <dd>Name: @item.itemName.getValue</dd>
+    <dd>Image location: @item.imageLocation.getValue</dd>
+    <dd>Porousware: @item.isPorousware.getValue</dd>
+    <dd>Keyword: @item.keyword</dd>
+</dl>
+}

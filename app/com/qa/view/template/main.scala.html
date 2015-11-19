@@ -1,0 +1,26 @@
+@(title: String)(content: Html)(implicit lang: Lang)
+@import play.api.Play.current
+@import com.qa.view.template.html.debug
+@import play.api.i18n.Messages.Implicits._
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@title</title>
+    <link rel="stylesheet" type="text/css" media="screen"
+          href='@routes.Assets.versioned("stylesheets/bootstrap.css")'>
+    <link rel="stylesheet" media="screen"
+          href='@routes.Assets.versioned("stylesheets/main.css")'>
+    <!--link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/bootstrap-theme.min.css")'-->
+</head>
+<body>
+<div class="screenshot">
+    @navbar()
+    <div class="jumbotron">
+        <div class="container">
+            @content
+        </div>
+    </div>
+</div>
+</body>
+@debug()
+</html>
