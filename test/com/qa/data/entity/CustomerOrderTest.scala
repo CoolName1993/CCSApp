@@ -1,7 +1,8 @@
 package com.qa.data.entity
 
-import com.qa.TestBase
 import java.sql.Date
+
+import com.qa.TestBase
 
 /**
  * @author cboucher

@@ -3,8 +3,6 @@ package com.qa.data.entity
 import com.qa.data.mongo.MongoConnector
 import com.qa.data.sql.SQLConnector
 
-import scala.collection.mutable.ListBuffer
-
 /**
  * Contains all queries required for the application.
  * @author cboucher
@@ -117,11 +115,21 @@ object QueryLoader {
     }
   }
 
+  def searchItemByKeyword(keyword: String): Array[Item] = {
+    val itemArray = listItems
+    if (keyword != null) {
+      val output = itemArray.filter(_.keyword == keyword)
+      output
+    } else {
+      itemArray
+    }
+  }
+
   /**
     * Gets all items from the item collection in the database.
     * @return The results of the search.
     */
-  def listItems(keyword: String): Array[Item] = {
+  def listItems: Array[Item] = {
     val items = MongoConnector.readAll(new Item(null, null, null, null, null).tableName)
     val itemArray = new Array[Item](items.length)
     def loop(i: Int): Unit = {
@@ -131,21 +139,6 @@ object QueryLoader {
       }
     }
     loop(0)
-    val itemList = new ListBuffer[Item]
-    def searchKey(i: Int): Unit = {
-      if (i < itemArray.length) {
-        if (itemArray(i).keyword != null && itemArray(i).keyword.equals(keyword)) {
-          itemList.+=(itemArray(i))
-        }
-        searchKey(i + 1)
-      }
-    }
-    if (keyword != null) {
-      searchKey(0)
-      itemList.toArray
-    } else {
-      itemArray
-    }
-
+    itemArray
   }
 }

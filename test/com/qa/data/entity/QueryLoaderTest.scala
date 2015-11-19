@@ -35,9 +35,12 @@ class QueryLoaderTest extends TestBase {
   }
 
   "listItems" should "return an array of items when requested" in {
-    val result = QueryLoader.listItems(null)
-    val result2 = QueryLoader.listItems("Gnome")
+    val result = QueryLoader.listItems
     assert(result.length > 1)
-    assert(result2.length > 1)
+  }
+
+  "searchItemByKeyword" should "return all items with the specified keyword" in {
+    val result = QueryLoader.searchItemByKeyword("Gnome")
+    assert(result.length > 1)
   }
 }
