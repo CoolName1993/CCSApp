@@ -68,7 +68,12 @@ object EntityConvertor {
     val imageLocation = input.get("ImageLocation").get.toString
     val isPorousWare = input.get("IsPorousware").get.toString.equals("true")
     val attributes = input.get("Attributes").get.asInstanceOf[BasicDBObject]
-    val keyword = attributes.get("Keyword").toString
-    new Item(itemID, itemName, imageLocation, isPorousWare, keyword)
+    if (attributes.get("Keyword") != null) {
+      val keyword = attributes.get("Keyword").toString
+      new Item(itemID, itemName, imageLocation, isPorousWare, keyword)
+    } else {
+      new Item(itemID, itemName, imageLocation, isPorousWare, "")
+    }
+
   }
 }

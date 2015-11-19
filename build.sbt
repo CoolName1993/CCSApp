@@ -34,3 +34,5 @@ libraryDependencies += "org.mongodb" % "casbah_2.11" % "3.0.0" % "compile"
 // SQL
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.37"
 fork in run := true
+
+fork in run := true

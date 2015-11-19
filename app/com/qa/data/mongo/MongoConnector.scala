@@ -20,31 +20,10 @@ object MongoConnector {
   var connection: MongoConnection = _
 
   /**
-   * Establishes the connection to the database.
-   * @return Whether or not the connection was successful.
-   */
-  def connect: Unit = {
-    try {
-      connection = MongoConnection(mongoURL, 27017)
-    } catch {
-      case e: Exception => {
-        e.printStackTrace
-      }
-    }
-  }
-
-  /**
-   * Closes the connection to the database.
-   */
-  def disconnect: Unit = {
-    connection.close
-  }
-
-  /**
-   * Searches a collection in the database for matching entities.
-   * @param collectionName The name of the collection to access
-   * @param fields An array of fields used as search parameters
-   */
+    * Searches a collection in the database for matching entities.
+    * @param collectionName The name of the collection to access
+    * @param fields An array of fields used as search parameters
+    */
   def read(collectionName: String, fields: Array[Field]): Array[MongoDBObject] = {
     def createMongoObject: MongoDBObject = {
       val output = MongoDBObject.empty
@@ -64,7 +43,52 @@ object MongoConnector {
       val cursor = collection.find(searchItem)
       val outputArray = new Array[MongoDBObject](cursor.size)
       def fillArray(i: Int) {
-        if (cursor.hasNext && i <= outputArray.size) {
+        if (cursor.hasNext && i <= outputArray.length) {
+          outputArray(i) = cursor.next
+          fillArray(i + 1)
+        }
+      }
+      fillArray(0)
+      disconnect
+      outputArray
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
+        disconnect
+        null
+
+    }
+  }
+
+  /**
+   * Establishes the connection to the database.
+   * @return Whether or not the connection was successful.
+   */
+  def connect: Unit = {
+    try {
+      connection = MongoConnection(mongoURL, 27017)
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
+
+    }
+  }
+
+  /**
+   * Closes the connection to the database.
+   */
+  def disconnect: Unit = {
+    connection.close
+  }
+
+  def readAll(collectionName: String): Array[MongoDBObject] = {
+    try {
+      connect
+      val collection = connection(databaseName)(collectionName)
+      val cursor = collection.find(MongoDBObject.empty)
+      val outputArray = new Array[MongoDBObject](cursor.size)
+      def fillArray(i: Int) {
+        if (cursor.hasNext && i <= outputArray.length) {
           outputArray(i) = cursor.next
           fillArray(i + (1))
         }
@@ -73,11 +97,11 @@ object MongoConnector {
       disconnect
       outputArray
     } catch {
-      case e: Exception => {
-        e.printStackTrace
+      case e: Exception =>
+        e.printStackTrace()
         disconnect
         null
-      }
+
     }
   }
 }

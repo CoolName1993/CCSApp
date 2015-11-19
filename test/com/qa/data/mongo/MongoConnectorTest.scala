@@ -13,4 +13,11 @@ class MongoConnectorTest extends TestBase{
     val result = MongoConnector.read("Item", fields)
     assert(result.length > 0)
   }
+
+  "readAll" should "return all contents from a collection" in {
+    val itemResult = MongoConnector.readAll("Item")
+    val addressResult = MongoConnector.readAll("Address")
+    assert(itemResult.length > 0)
+    assert(addressResult.length > 0)
+  }
 }
