@@ -9,7 +9,7 @@ import com.mongodb.casbah.commons._
   * Converts raw data into classes to be used by controllers
   * @author cboucher
   */
-object EntityConvertor {
+object EntityConverter {
 
   /**
     * Converts raw data into a user object.

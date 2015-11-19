@@ -28,16 +28,16 @@ object MongoConnector {
     def createMongoObject: MongoDBObject = {
       val output = MongoDBObject.empty
       def addField(i: Int) {
-        if (i < fields.size) {
+        if (i < fields.length) {
           output.put(fields(i).getFieldName, fields(i).getValue)
-          addField(i + (1))
+          addField(i + 1)
         }
       }
       addField(0)
       output
     }
     try {
-      connect
+      connect()
       val collection = connection(databaseName)(collectionName)
       val searchItem = createMongoObject
       val cursor = collection.find(searchItem)
@@ -49,12 +49,12 @@ object MongoConnector {
         }
       }
       fillArray(0)
-      disconnect
+      disconnect()
       outputArray
     } catch {
       case e: Exception =>
         e.printStackTrace()
-        disconnect
+        disconnect()
         null
 
     }
@@ -64,7 +64,7 @@ object MongoConnector {
    * Establishes the connection to the database.
    * @return Whether or not the connection was successful.
    */
-  def connect: Unit = {
+  def connect(): Unit = {
     try {
       connection = MongoConnection(mongoURL, 27017)
     } catch {
@@ -77,29 +77,29 @@ object MongoConnector {
   /**
    * Closes the connection to the database.
    */
-  def disconnect: Unit = {
+  def disconnect(): Unit = {
     connection.close
   }
 
   def readAll(collectionName: String): Array[MongoDBObject] = {
     try {
-      connect
+      connect()
       val collection = connection(databaseName)(collectionName)
       val cursor = collection.find(MongoDBObject.empty)
       val outputArray = new Array[MongoDBObject](cursor.size)
       def fillArray(i: Int) {
         if (cursor.hasNext && i <= outputArray.length) {
           outputArray(i) = cursor.next
-          fillArray(i + (1))
+          fillArray(i + 1)
         }
       }
       fillArray(0)
-      disconnect
+      disconnect()
       outputArray
     } catch {
       case e: Exception =>
         e.printStackTrace()
-        disconnect
+        disconnect()
         null
 
     }

@@ -25,7 +25,7 @@ object QueryLoader {
       val output = new Array[CustomerOrder](currentOrders.length)
       def loop(i: Int) {
         if (i < currentOrders.length) {
-          output(i) = EntityConvertor.convertToCustomerOrder(currentOrders(i))
+          output(i) = EntityConverter.convertToCustomerOrder(currentOrders(i))
           loop(i + 1)
         }
       }
@@ -49,7 +49,7 @@ object QueryLoader {
       val output = new Array[CustomerOrderLine](currentOrderLines.length)
       def loop(i: Int) {
         if (i < currentOrderLines.length) {
-          output(i) = EntityConvertor.convertToCustomerOrderLine(currentOrderLines(i))
+          output(i) = EntityConverter.convertToCustomerOrderLine(currentOrderLines(i))
           loop(i + 1)
         }
       }
@@ -73,7 +73,7 @@ object QueryLoader {
       val output = new Array[Location](currentLocations.length)
       def loop(i: Int) {
         if (i < currentLocations.length) {
-          output(i) = EntityConvertor.convertToLocation(currentLocations(i))
+          output(i) = EntityConverter.convertToLocation(currentLocations(i))
           loop(i + 1)
         }
       }
@@ -94,7 +94,7 @@ object QueryLoader {
     val searchValues = Array(searchUser.idUser, searchUser.password, searchUser.forename, searchUser.surname, searchUser.email, searchUser.isEmployee)
     val currentUser = SQLConnector.read(searchUser.tableName, searchValues)
     if (currentUser.length != 0) {
-      val output = EntityConvertor.convertToUser(currentUser(0))
+      val output = EntityConverter.convertToUser(currentUser(0))
       output
     } else {
       null
@@ -110,7 +110,7 @@ object QueryLoader {
     val searchValues = Array(selectedItem.idItem)
     val currentItem = MongoConnector.read(selectedItem.tableName, searchValues)
     if (currentItem.length != 0) {
-      val output = EntityConvertor.convertToItem(currentItem(0))
+      val output = EntityConverter.convertToItem(currentItem(0))
       output
     } else {
       null
@@ -126,7 +126,7 @@ object QueryLoader {
     val itemArray = new Array[Item](items.length)
     def loop(i: Int): Unit = {
       if (i < items.length) {
-        itemArray(i) = EntityConvertor.convertToItem(items(i))
+        itemArray(i) = EntityConverter.convertToItem(items(i))
         loop(i + 1)
       }
     }
