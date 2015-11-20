@@ -12,7 +12,11 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 GET     /viewAllItems               com.qa.controller.ItemController.viewAll
 
 # View all items with the specified keyword
-GET     /viewAllItemsByKey               com.qa.controller.ItemController.viewAllByKeyword(key: String)
+GET     /viewAllItemsByKey          com.qa.controller.ItemController.viewAllByKeyword(key: String)
 
 # View a single item in the database
-GET     /item/:id                 com.qa.controller.ItemController.viewItem(id: Int)
+GET     /item/:id                   com.qa.controller.ItemController.viewItem(id: Int)
+
+# Add a new customer order
+GET     /addNewOrder                com.qa.controller.CustomerOrderController.addPage
+POST    /newOrder                   com.qa.controller.CustomerOrderController.save

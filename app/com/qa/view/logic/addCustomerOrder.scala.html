@@ -1,0 +1,20 @@
+@(customerOrderForm: Form[com.qa.model.entity.CustomerOrderHelper])(implicit flash: Flash, lang: Lang)
+@import helper._
+@import play.api.Play.current
+@import play.api.i18n.Messages.Implicits._
+@import com.qa.view.template.html.main
+@main(Messages("customerorders.form")) {
+<h2>@Messages("customerorders.form")</h2>
+@helper.form(action = com.qa.controller.routes.CustomerOrderController.save) {
+<fieldset>
+    <legend>
+        @Messages("Add new customer order", Messages("application.name"))
+    </legend>
+    @helper.inputText(customerOrderForm("idCustomer"))
+    @helper.inputText(customerOrderForm("idAddress"))
+    @helper.inputText(customerOrderForm("idEmployee"))
+</fieldset>
+<p><input type="submit" class="btn primary"
+          value='@Messages("customerorders.new.submit")'></p>
+}
+}
