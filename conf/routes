@@ -15,4 +15,4 @@ GET     /viewAllItems               com.qa.controller.ItemController.viewAll
 GET     /viewAllItemsByKey               com.qa.controller.ItemController.viewAllByKeyword(key: String)
 
 # View a single item in the database
-GET     /viewItem                   com.qa.controller.ItemController.viewItem(id: Int)
+GET     /item/:id                 com.qa.controller.ItemController.viewItem(id: Int)

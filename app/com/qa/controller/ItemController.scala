@@ -1,6 +1,6 @@
 package com.qa.controller
 
-import com.qa.data.entity.{Item, QueryLoader}
+import com.qa.model.entity.{Item, QueryLoader}
 import play.api.mvc._
 
 /**
