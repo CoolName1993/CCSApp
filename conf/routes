@@ -19,11 +19,12 @@ POST    /login                              com.qa.controller.LoginController.au
 
 # Customer orders
 # ~~~~
-# View all orders (Can filter by customer id, employee id)
-GET     /customerorders                     com.qa.controller.CustomerOrderController.viewByCustomerID(customerid : Option[Int], employeeid : Option[Int])
+# View all orders. (Can filter by customer id, employee id)
+GET     /customerorders                     com.qa.controller.CustomerOrderController.viewAll(customerid : Option[Int], employeeid : Option[Int])
 # ~~~~
 # Add a new customer order
-GET     /customerorders/add                 com.qa.controller.CustomerOrderController.addNewOrder(orderid : Int)
+GET     /customerorders/add                 com.qa.controller.CustomerOrderController.addOrderView
+POST    /customerorders/add                 com.qa.controller.CustomerOrderController.addOrder
 # ~~~~
 # View a customer order by order id
 GET     /customerorders/:orderid            com.qa.controller.CustomerOrderController.viewByOrderID(orderid : Int)
@@ -44,8 +45,8 @@ GET     /customers                          com.qa.controller.CustomerController
 
 # Items
 # ~~~~
-# View all items (Can filter by name, keyword, category)
-GET     /items                              com.qa.controller.ItemController.viewAll(name : Option[String], keyword : Option[String], category : Option[String])
+# View all items (Can filter by item id, name, keyword, category)
+GET     /items                              com.qa.controller.ItemController.viewAll(itemid : Option[Int], name : Option[String], keyword : Option[String], category : Option[String])
 # ~~~~
 # View an item by item id
 GET     /items/:itemid                      com.qa.controller.ItemController.viewByItemID(itemid : Int)
