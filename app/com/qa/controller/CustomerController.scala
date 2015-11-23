@@ -6,7 +6,7 @@ import play.api.mvc._
   * The controller for all actions on the webapp related to a customer.
   * @author cboucher
   */
-object CustomerController extends Controller {
+class CustomerController extends Controller {
 
   /**
     * Shows all customers.

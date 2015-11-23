@@ -1,7 +1,6 @@
 package com.qa.controller
 
 import com.qa.TestBase
-import com.qa.model.entity.Item
 import play.api.test.Helpers._
 import play.api.test.{FakeRequest, WithApplication}
 
@@ -10,7 +9,24 @@ import play.api.test.{FakeRequest, WithApplication}
   */
 class ItemControllerTest extends TestBase {
 
-  "viewAll" should "return the viewItems page and display all items" in new WithApplication {
+  "viewAll" should "return a 501 error message" in new WithApplication {
+    val result = new ItemController().viewAll(None, None, None, None)(FakeRequest())
+    status(result) must equal(NOT_IMPLEMENTED)
+  }
+
+  "viewByItemID" should "return a 501 error message" in new WithApplication {
+    val result = new ItemController().viewByItemID(1)(FakeRequest())
+    status(result) must equal(NOT_IMPLEMENTED)
+  }
+
+  "addToOrder" should "return a 501 error message" in new WithApplication {
+    val result = new ItemController().addToOrder(1)(FakeRequest())
+    status(result) must equal(NOT_IMPLEMENTED)
+  }
+
+  // ~~~VVV ARCHIVES VVV~~~
+
+  /*"viewAll" should "return the viewItems page and display all items" in new WithApplication {
     val result = new ItemController().viewAll(FakeRequest())
     status(result) must equal(OK)
     contentType(result) must be(Some("text/html"))
@@ -44,5 +60,5 @@ class ItemControllerTest extends TestBase {
     contentType(result) must be(Some("text/html"))
     val itemArray = com.qa.model.entity.QueryLoader.searchItemByKeyword("Gnome")
     contentAsString(result) must include(itemArray(0).idItem.getValue.toString)
-  }
+  }*/
 }

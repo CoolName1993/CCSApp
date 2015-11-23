@@ -9,7 +9,7 @@ import play.api.mvc._
   * The controller for all actions on the webapp related to a customer order.
   * Created by cboucher on 19/11/2015.
   */
-object CustomerOrderController extends Controller {
+class CustomerOrderController extends Controller {
 
   // A form object to bind html fields to a data object from the model.
   val customerOrderForm = Form[CustomerOrderHelper](

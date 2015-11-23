@@ -7,7 +7,7 @@ import play.api.mvc._
   * The controller for the login section of the webapp.
   * @author cboucher
   */
-object LoginController extends Controller {
+class LoginController extends Controller {
 
   // A form object to bind html fields to a data object from the model.
   val loginForm = Form // TODO Implement this

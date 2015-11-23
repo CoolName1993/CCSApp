@@ -6,7 +6,7 @@ import play.api.mvc._
   * The controller for all actions on the webapp related to a customer order.
   * @author cboucher
   */
-object ItemController extends Controller {
+class ItemController extends Controller {
 
   /**
     * View all items (Can filter by item id, name, keyword, category).
