@@ -50,5 +50,4 @@ class CustomerOrderController extends Controller {
   def addPage = Action { implicit request =>
     Ok(com.qa.view.logic.html.addCustomerOrder(customerOrderForm))
   }
-
 }

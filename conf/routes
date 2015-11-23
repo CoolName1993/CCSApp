@@ -3,20 +3,53 @@
 # ~~~~
 
 # Home page
-
+GET     /                                   com.qa.controller.Application.index
+# ~~~~
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+GET     /assets/*file                       controllers.Assets.versioned(path="/public", file: Asset)
+# ~~~~
 
-# View all items in the database
-GET     /viewAllItems               com.qa.controller.ItemController.viewAll
+# Log in
+# ~~~~
+# Log in a user
+GET     /login                              com.qa.controller.LoginController.view
+POST    /login                              com.qa.controller.LoginController.authenticate
+# ~~~~
 
-# View all items with the specified keyword
-GET     /viewAllItemsByKey          com.qa.controller.ItemController.viewAllByKeyword(key: String)
-
-# View a single item in the database
-GET     /item/:id                   com.qa.controller.ItemController.viewItem(id: Int)
-
+# Customer orders
+# ~~~~
+# View all orders (Can filter by customer id, employee id)
+GET     /customerorders                     com.qa.controller.CustomerOrderController.viewByCustomerID(customerid : Option[Int], employeeid : Option[Int])
+# ~~~~
 # Add a new customer order
-GET     /addNewOrder                com.qa.controller.CustomerOrderController.addPage
-POST    /newOrder                   com.qa.controller.CustomerOrderController.save
+GET     /customerorders/add                 com.qa.controller.CustomerOrderController.addNewOrder(orderid : Int)
+# ~~~~
+# View a customer order by order id
+GET     /customerorders/:orderid            com.qa.controller.CustomerOrderController.viewByOrderID(orderid : Int)
+# ~~~~
+# Edit a customer order by order id
+GET     /customerorders/:orderid/edit       com.qa.controller.CustomerOrderController.editByOrderID(orderid : Int)
+POST    /customerorders/:orderid/edit       com.qa.controller.CustomerOrderController.updateOrder(orderid : Int)
+# ~~~~
+
+# Customers
+# ~~~~
+# View all customers
+GET     /customers                          com.qa.controller.CustomerController.viewAll
+# ~~~~
+# View a customer by id
+# GET   /customers/:customerid              com.qa.controller.CustomerController.viewByCustomerID(customerid : Int)
+# ~~~~
+
+# Items
+# ~~~~
+# View all items (Can filter by name, keyword, category)
+GET     /items                              com.qa.controller.ItemController.viewAll(name : Option[String], keyword : Option[String], category : Option[String])
+# ~~~~
+# View an item by item id
+GET     /items/:itemid                      com.qa.controller.ItemController.viewByItemID(itemid : Int)
+# ~~~~
+# Add the item to the current order
+POST    /items/:itemid/add                  com.qa.controller.ItemController.addToOrder(itemid : Int)
+
