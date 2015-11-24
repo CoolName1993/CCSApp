@@ -5,8 +5,8 @@
 @main(Messages("application.name")) {
 <dl class="products">
     @for(item <- items) {
-    <dt>@item.idItem.getValue</dt>
-    <dd>@item.itemName.getValue</dd>
+    <dt>@item.idItem</dt>
+    <dd>@item.itemName</dd>
     }
 </dl>
 }

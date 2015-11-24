@@ -1,5 +1,7 @@
 package com.qa.controller
 
+import com.qa.model.dao.CustomerOrderDAO
+import com.qa.model.entity.CustomerOrder
 import play.api.data.Form
 import play.api.data.Forms._
 import play.api.mvc._
@@ -11,13 +13,14 @@ import play.api.mvc._
 class CustomerOrderController extends Controller {
 
   // A form object to bind html fields to a data object from the model.
-  val customerOrderForm = Form[CustomerOrderHelper](
+  val customerOrderForm = Form[CustomerOrder](
     mapping(
       "idCustomer" -> number(1, Int.MaxValue, false),
       "idAddress" -> number(1, Int.MaxValue, false),
       "idEmployee" -> number(1, Int.MaxValue, false)
-    )(CustomerOrderHelper.apply)(CustomerOrderHelper.unapply)
-  ) // TODO Update this when model is changed
+    )((idCustomer, idAddress, idEmployee) => CustomerOrder(0, null, null, false, idAddress, 1, idEmployee, idCustomer))
+    ((customerOrder: CustomerOrder) => Some((customerOrder.idCustomer, customerOrder.idAddress, customerOrder.idEmployee)))
+  ) // DONE Update this when model is changed
 
   // A form object to bind html fields to a data object from the model.
   val customerOrderLineForm = Form // TODO Implement this
@@ -27,11 +30,11 @@ class CustomerOrderController extends Controller {
 
   /**
     * View all orders. (Can filter by customer id, employee id)
-    * @param customerid (Optional) The customer id of the order
-    * @param employeeid (Optional) The employee id of the order
+    * @param idCustomer (Optional) The customer id of the order
+    * @param idEmployee (Optional) The employee id of the order
     * @return A HTML page showing all orders that match the filter criteria (if applicable)
     */
-  def viewAll(customerid: Option[Int], employeeid: Option[Int]) = Action { implicit request =>
+  def viewAll(idCustomer: Option[Int], idEmployee: Option[Int]) = Action { implicit request =>
     NotImplemented // TODO Implement this
   }
 
@@ -40,6 +43,7 @@ class CustomerOrderController extends Controller {
     * @return The HTML page with the customer order form.
     */
   def addOrderView = Action { implicit request =>
+    Ok(com.qa.view.logic.html.addCustomerOrder(customerOrderForm))
     NotImplemented // TODO Implement this
   }
 
@@ -49,33 +53,45 @@ class CustomerOrderController extends Controller {
     */
   def addOrder = Action { implicit request =>
     // val currentCustomerOrder = customerOrderForm.bindFromRequest
-    NotImplemented // TODO Implement this
+    //NotImplemented DONE Implement this
+    val newCustomerOrderForm = customerOrderForm.bindFromRequest
+    newCustomerOrderForm.fold(
+      hasErrors = { form =>
+        Redirect(routes.ItemController.viewByItemID(1)) /*.flashing(Flash(form.data) + ("error" -> Messages("validation.errors")))*/
+      },
+      success = { newCustomerOrder =>
+        val result = CustomerOrderDAO.insert(newCustomerOrder)
+        Redirect(routes.ItemController.viewAll(None, None, None, None))
+        /*val message = Messages("products.new.success", newCustomerOrder.idCustomer)
+        Redirect(routes.CustomerOrderController.viewByOrderID(result.id)).flashing("success" -> message)*/
+      }
+    )
   }
 
   /**
     * Searches for the order with the selected order id
-    * @param orderid The order id to search for.
+    * @param idOrder The order id to search for.
     * @return The HTML page for the customer order or an error page
     */
-  def viewByOrderID(orderid: Int) = Action { implicit request =>
+  def viewByOrderID(idOrder: Int) = Action { implicit request =>
     NotImplemented // TODO Implement this
   }
 
   /**
     * Allows the user to edit a customer order
-    * @param orderid The order id of the selected order.
+    * @param idOrder The order id of the selected order.
     * @return The HTML page of the order with editable fields or an error page.
     */
-  def editByOrderID(orderid: Int) = Action { implicit request =>
+  def editByOrderID(idOrder: Int) = Action { implicit request =>
     NotImplemented // TODO Implement this
   }
 
   /**
     * Adds an order line to the order using data from the HTML form.
-    * @param orderid The order id of the selected order.
+    * @param idOrder The order id of the selected order.
     * @return The HTML page of the order showing the new order line or an error page.
     */
-  def updateOrder(orderid: Int) = Action { implicit request =>
+  def updateOrder(idOrder: Int) = Action { implicit request =>
     // val currentOrderLine = customerOrderLineForm.bindFromRequest
     NotImplemented // TODO Implement this
   }

@@ -4,10 +4,10 @@
 @import com.qa.view.template.html.main
 @main(Messages("application.name")) {
 <dl class="products">
-    <dt>Item ID: @item.idItem.getValue</dt>
-    <dd>Name: @item.itemName.getValue</dd>
-    <dd>Image location: @item.imageLocation.getValue</dd>
-    <dd>Porousware: @item.isPorousware.getValue</dd>
-    <dd>Keyword: @item.keyword</dd>
+    <dt>Item ID: @item.idItem</dt>
+    <dd>Name: @item.itemName</dd>
+    <dd>Image location: @item.imageLocation</dd>
+    <dd>Porousware: @item.isPorousware</dd>
+    <dd>Keyword: @item.attributes.keyword</dd>
 </dl>
 }

@@ -8,11 +8,11 @@ import reactivemongo.bson._
   */
 object AddressDAO {
 
-  implicit object AddressBSONReader extends BSONReader[Address] {
+  implicit object AddressBSONReader extends BSONDocumentReader[Address] {
     def read(document: BSONDocument): Address = {
       Address(
         document.getAs[BSONInteger]("idAddress").get.value,
-        document.getAs[BSONArray]("AddressLines").get.values.toArray[String],
+        document.getAs[List[String]]("AddressLines").toArray.flatten,
         document.getAs[BSONString]("City").get.value,
         Option(document.getAs[BSONString]("County").get.value),
         document.getAs[BSONString]("PostCode").get.value
