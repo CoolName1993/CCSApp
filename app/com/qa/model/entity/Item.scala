@@ -1,7 +1,5 @@
 package com.qa.model.entity
 
-import reactivemongo.bson._
-
 /**
   * Represents the attribute object inside the item object.
   * @param category (Optional) The category the item is in.
@@ -22,9 +20,8 @@ case class Attributes(category: Option[String],
   * @param attributes The attributes of the item.
   * @author cboucher
   */
-case class Item(_id: Option[BSONObjectID],
-                idItem: Any,
+case class Item(idItem: Any,
                 itemName: String,
                 imageLocation: String,
-                isPorousware: Any,
+                isPorousware: Boolean,
                 attributes: Attributes)

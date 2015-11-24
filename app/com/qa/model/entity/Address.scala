@@ -1,7 +1,5 @@
 package com.qa.model.entity
 
-import reactivemongo.bson._
-
 /**
  * Represents an Address from the MongoDB database.
   * @param idAddress The address ID.
@@ -11,9 +9,8 @@ import reactivemongo.bson._
   * @param postcode The postcode in the address.
  * @author cboucher
  */
-case class Address(_id: Option[BSONObjectID],
-                   idAddress: Int,
+case class Address(idAddress: Int,
                    addressLines: Array[String],
                    city: String,
-                   county: String,
+                   county: Option[String],
                    postcode: String)
