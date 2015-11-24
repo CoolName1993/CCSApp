@@ -25,7 +25,6 @@ object Database extends Schema {
   ))
 
   on(customerOrderLineTable)(c => declare(
-    c.id is autoIncremented
   ))
 
   on(customerOrderStatusTable)(c => declare(
