@@ -1,19 +1,30 @@
 package com.qa.model.entity
 
+import reactivemongo.bson._
 
 /**
- * Represents an Item from the MongoDB database.
- * @param idItem_ The item ID.
- * @param itemName_ The name of the item.
- * @param imageLocation_ The location of the item's image.
- * @param isPorousware_ Whether the item has porousware.
- * @author cboucher
- */
-class Item(idItem_ : Any, itemName_ : String, imageLocation_ : String, isPorousware_ : Any, keyword_ : String) {
-  val tableName: String = "Item"
-  val idItem = new Field("idItem", idItem_)
-  val itemName = new Field("ItemName", itemName_)
-  val imageLocation = new Field("ImageLocation", imageLocation_)
-  val isPorousware = new Field("IsPorousware", isPorousware_)
-  val keyword = keyword_
-}
+  * Represents the attribute object inside the item object.
+  * @param category (Optional) The category the item is in.
+  * @param keyword (Optional) The related keyword.
+  * @param color (Optional) The colour of the item.
+  * @author cboucher
+  */
+case class Attributes(category: Option[String],
+                      keyword: Option[String],
+                      color: Option[String])
+
+/**
+  * Represents an Item from the MongoDB database.
+  * @param idItem The item ID.
+  * @param itemName The name of the item.
+  * @param imageLocation The location of the item's image.
+  * @param isPorousware Whether the item has porousware.
+  * @param attributes The attributes of the item.
+  * @author cboucher
+  */
+case class Item(_id: Option[BSONObjectID],
+                idItem: Any,
+                itemName: String,
+                imageLocation: String,
+                isPorousware: Any,
+                attributes: Attributes)

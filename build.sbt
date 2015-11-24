@@ -31,6 +31,10 @@ libraryDependencies += "org.mongodb" % "casbah-gridfs_2.11" % "3.0.0"
 libraryDependencies += "org.mongodb" % "bson" % "3.1.1"
 libraryDependencies += "org.mongodb" % "casbah_2.11" % "3.0.0" % "compile"
 
+// Reactive Mongo
+libraryDependencies += "org.reactivemongo" % "reactivemongo_2.11" % "0.11.7"
+libraryDependencies += "org.reactivemongo" % "play2-reactivemongo_2.11" % "0.11.7.play24"
+
 // SQL
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.37"
 // SQUERYL
