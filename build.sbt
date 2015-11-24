@@ -33,6 +33,9 @@ libraryDependencies += "org.mongodb" % "casbah_2.11" % "3.0.0" % "compile"
 
 // SQL
 libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.37"
+// SQUERYL
+libraryDependencies += "org.squeryl" % "squeryl_2.11" % "0.9.5-7"
+
 fork in run := true
 
 fork in run := true

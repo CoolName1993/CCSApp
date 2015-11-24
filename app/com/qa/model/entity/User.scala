@@ -1,21 +1,20 @@
 package com.qa.model.entity
 
+import org.squeryl.KeyedEntity
+
 /**
  * Represents a Purchase Order Line from the MySQL database.
- * @param idUser_ The user ID.
- * @param password_ The user's password.
- * @param forename_ The  user's forename.
- * @param surname_ The user's surname.
- * @param email_ The user's email.
- * @param isEmployee_ Whether the user is an employee or not.
+  * @param id The user ID.
+  * @param password The user's password.
+  * @param forename The  user's forename.
+  * @param surname The user's surname.
+  * @param email The user's email.
+  * @param isEmployee Whether the user is an employee or not.
  * @author cboucher
  */
-class User(idUser_ : Int, password_ : String, forename_ : String, surname_ : String, email_ : String, isEmployee_ : Int) extends Entity {
-  val tableName = "user"
-  val idUser = new Field("idUser", idUser_)
-  val password = new Field("password", password_)
-  val forename = new Field("forename", forename_)
-  val surname = new Field("surname", surname_)
-  val email = new Field("email", email_)
-  val isEmployee = new Field("isEmployee", isEmployee_)
-}
+case class User(id: Int,
+                password: String,
+                forename: String,
+                surname: String,
+                email: String,
+                isEmployee: Int) extends KeyedEntity[Int]

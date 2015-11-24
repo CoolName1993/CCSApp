@@ -1,19 +1,17 @@
 package com.qa.model.entity
 
+import org.squeryl.KeyedEntity
+
 /**
  * Represents a Location from the MySQL database.
- * @param idLocation_ The location ID.
- * @param idItem_ The item ID.
- * @param row_ The row of the location.
- * @param col_ The column of the location.
- * @param quantity_ The quantity stored in the location.
+  * @param id The location ID.
+  * @param idItem The item ID.
+  * @param row The row of the location.
+  * @param col The column of the location.
+  * @param quantity The quantity stored in the location.
  * @author cboucher
  */
-class Location(idLocation_ : Any, idItem_ : Any, row_ : Any, col_ : Any, quantity_ : Any) extends Entity {
-  val tableName = "location"
-  val idLocation = new Field("idLocation", idLocation_)
-  val idItem = new Field("idItem", idItem_)
-  val row = new Field("row", row_)
-  val col = new Field("col", col_)
-  val quantity = new Field("quantity", quantity_)
-}
+case class Location(id: Int, idItem: Int,
+                    row: Int,
+                    col: Int,
+                    quantity: Int) extends KeyedEntity[Int]
