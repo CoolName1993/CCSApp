@@ -1,7 +1,6 @@
 package com.qa.model.mongo
 
 import com.mongodb.casbah.Imports._
-import com.qa.model.entity.Field
 
 /**
  * Connects to the MongoDB database and performs R operations. <br/>
@@ -60,6 +59,27 @@ object MongoConnector {
     }
   }
 
+  /**
+    * Establishes the connection to the database.
+    * @return Whether or not the connection was successful.
+    */
+  def connect(): Unit = {
+    try {
+      connection = MongoConnection(mongoURL, 27017)
+    } catch {
+      case e: Exception =>
+        e.printStackTrace()
+
+    }
+  }
+
+  /**
+    * Closes the connection to the database.
+    */
+  def disconnect(): Unit = {
+    connection.close
+  }
+
   def readAll(collectionName: String): Array[MongoDBObject] = {
     try {
       connect()
@@ -82,26 +102,5 @@ object MongoConnector {
         null
 
     }
-  }
-
-  /**
-    * Establishes the connection to the database.
-    * @return Whether or not the connection was successful.
-    */
-  def connect(): Unit = {
-    try {
-      connection = MongoConnection(mongoURL, 27017)
-    } catch {
-      case e: Exception =>
-        e.printStackTrace()
-
-    }
-  }
-
-  /**
-    * Closes the connection to the database.
-    */
-  def disconnect(): Unit = {
-    connection.close
   }
 }

@@ -45,12 +45,40 @@ object CustomerOrderDAO {
   /**
     * Finds all customer orders with a specific employee id.
     * @param idEmployee The id of the employee.
-    * @return A query for a orders with the specified employee id.
+    * @return A query for all orders with the specified employee id.
     */
   def findByEmployeeID(idEmployee: Int): Query[CustomerOrder] = from(customerOrderTable) {
     customerOrder => {
       where(customerOrder.idEmployee === idEmployee).
         select(customerOrder)
     }
+  }
+
+  /**
+    * Updates a customer order in the table
+    * @param customerOrder The customer order to update
+    */
+  def update(customerOrder: CustomerOrder) {
+    inTransaction {
+      customerOrderTable.update(customerOrder)
+    }
+  }
+
+  /**
+    * Inserts a customer order into the table
+    * @param customerOrder The customer order to insert.
+    * @return The inserted customer order.
+    */
+  def insert(customerOrder: CustomerOrder): CustomerOrder = inTransaction {
+    customerOrderTable.insert(customerOrder)
+  }
+
+  /**
+    * Gets all related customer order lines.
+    * @param customerOrder The customer order to query.
+    * @return A list of customer order lines.
+    */
+  def getCustomerOrderLines(customerOrder: CustomerOrder) = inTransaction {
+    customerOrder.customerOrderLines.toList
   }
 }

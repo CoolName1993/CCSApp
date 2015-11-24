@@ -29,4 +29,13 @@ object CustomerDAO {
         select(customer)
     }
   }
+
+  /**
+    * Gets all related customer orders.
+    * @param customer The customer to query.
+    * @return A list of customer orders.
+    */
+  def getCustomerOrders(customer: Customer) = inTransaction {
+    customer.customerOrders.toList
+  }
 }

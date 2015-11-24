@@ -2,7 +2,9 @@ package com.qa.model.entity
 
 import java.util.Date
 
+import com.qa.model.sql.Database
 import org.squeryl.KeyedEntity
+import org.squeryl.dsl.{ManyToOne, OneToMany}
 
 /**
  * Represents a Customer Order from the MySQL database.
@@ -23,4 +25,11 @@ case class CustomerOrder(id: Int,
                          idAddress: Int,
                          idCustomerOrderStatus: Int,
                          idEmployee: Int,
-                         idCustomer: Int) extends KeyedEntity[Int]
+                         idCustomer: Int) extends KeyedEntity[Int] {
+
+  lazy val customerOrderLines: OneToMany[CustomerOrderLine] =
+    Database.customerOrderToCustomerOrderLine.left(this)
+
+  lazy val customer: ManyToOne[Customer] =
+    Database.customerToCustomerOrder.right(this)
+}

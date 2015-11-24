@@ -1,7 +1,6 @@
 package com.qa.model.sql
 
 import com.qa.TestBase
-import com.qa.model.entity.Field
 
 /**
  * @author cboucher

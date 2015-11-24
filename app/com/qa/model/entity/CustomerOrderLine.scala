@@ -1,8 +1,9 @@
 package com.qa.model.entity
 
+import com.qa.model.sql.Database
 import org.squeryl.KeyedEntity
 import org.squeryl.PrimitiveTypeMode._
-import org.squeryl.dsl.CompositeKey2
+import org.squeryl.dsl.{CompositeKey2, ManyToOne}
 
 /**
  * Represents a Customer Order Line from the MySQL database.
@@ -14,5 +15,9 @@ import org.squeryl.dsl.CompositeKey2
 case class CustomerOrderLine(idItem: Int,
                              idCustomerOrder: Int,
                              quantity: Int) extends KeyedEntity[CompositeKey2[Int, Int]] {
+
+  lazy val customerOrder: ManyToOne[CustomerOrder] =
+    Database.customerOrderToCustomerOrderLine.right(this)
+
   def id = compositeKey(idItem, idCustomerOrder)
 }

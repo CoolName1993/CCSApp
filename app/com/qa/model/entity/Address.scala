@@ -9,7 +9,7 @@ package com.qa.model.entity
  * @param postcode_ The postcode in the address.
  * @author cboucher
  */
-class Address(idAddress_ : Int, addressLines_ : Array[String], city_ : String, county_ : String, postcode_ : String) extends Entity {
+class Address(idAddress_ : Int, addressLines_ : Array[String], city_ : String, county_ : String, postcode_ : String) {
   val tableName = "Address"
   val idAddress = new Field("idAddress", idAddress_)
   val addressLines = getAddressLines

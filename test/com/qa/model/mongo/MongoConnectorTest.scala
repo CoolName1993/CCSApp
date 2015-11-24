@@ -1,7 +1,6 @@
 package com.qa.model.mongo
 
 import com.qa.TestBase
-import com.qa.model.entity.Field
 
 /**
  * @author cboucher

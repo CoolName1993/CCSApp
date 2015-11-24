@@ -5,7 +5,8 @@ import org.squeryl.PrimitiveTypeMode._
 import org.squeryl.Schema
 
 /**
-  * Created by cboucher on 24/11/2015.
+  * Represents the structure of the SQL database
+  * @author cboucher
   */
 
 object Database extends Schema {
@@ -24,9 +25,6 @@ object Database extends Schema {
     c.id is autoIncremented
   ))
 
-  on(customerOrderLineTable)(c => declare(
-  ))
-
   on(customerOrderStatusTable)(c => declare(
     c.id is autoIncremented
   ))
@@ -35,6 +33,11 @@ object Database extends Schema {
     l.id is autoIncremented
   ))
 
-  on(userTable)(u => declare(
-  ))
+  val customerOrderToCustomerOrderLine =
+    oneToManyRelation(customerOrderTable, customerOrderLineTable).
+      via((c, l) => c.id === l.idCustomerOrder)
+
+  val customerToCustomerOrder =
+    oneToManyRelation(customerTable, customerOrderTable).
+      via((c, o) => c.id === o.idCustomer)
 }
