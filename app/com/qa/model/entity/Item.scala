@@ -7,9 +7,9 @@ package com.qa.model.entity
   * @param color (Optional) The colour of the item.
   * @author cboucher
   */
-case class Attributes(category: Option[String],
-                      keyword: Option[String],
-                      color: Option[String])
+case class Attributes(category: String,
+                      keyword: String,
+                      color: String)
 
 /**
   * Represents an Item from the MongoDB database.
@@ -20,8 +20,9 @@ case class Attributes(category: Option[String],
   * @param attributes The attributes of the item.
   * @author cboucher
   */
-case class Item(idItem: Any,
+case class Item(idItem: Int,
                 itemName: String,
                 imageLocation: String,
-                isPorousware: Boolean,
-                attributes: Attributes)
+                isPorousware: Boolean)
+
+/* attributes: Attributes)*/

@@ -14,9 +14,13 @@ class CustomerOrderControllerTest extends TestBase {
     status(result) must equal(NOT_IMPLEMENTED)
   }
 
-  "addOrderView" should "return a 501 error message" in new WithApplication {
+  "addOrderView" should "return an HTML page with a form" in new WithApplication {
     val result = new CustomerOrderController().addOrderView(FakeRequest())
-    status(result) must equal(NOT_IMPLEMENTED)
+    status(result) must equal(OK)
+    contentType(result) must be(Some("text/html"))
+    contentAsString(result) must include("idCustomer")
+    contentAsString(result) must include("idEmployee")
+    contentAsString(result) must include("idAddress")
   }
 
   "addOrder" should "return a 501 error message" in new WithApplication {

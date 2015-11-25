@@ -1,12 +1,17 @@
 package com.qa.controller
 
+import com.qa.model.dao.ItemDAO
+import play.api.Play.current
 import play.api.mvc._
+import play.modules.reactivemongo.{MongoController, ReactiveMongoApi, ReactiveMongoComponents}
 
 /**
   * The controller for all actions on the webapp related to a customer order.
   * @author cboucher
   */
-class ItemController extends Controller {
+class ItemController extends Controller with MongoController with ReactiveMongoComponents {
+
+  lazy val reactiveMongoApi = current.injector.instanceOf[ReactiveMongoApi]
 
   /**
     * View all items (Can filter by item id, name, keyword, category).
@@ -17,7 +22,8 @@ class ItemController extends Controller {
     * @return The HTML page showing all items that match the criteria (if applicable).
     */
   def viewAll(itemid: Option[Int], name: Option[String], keyword: Option[String], category: Option[String]) = Action { implicit request =>
-    NotImplemented // TODO Implement this
+    val results = ItemDAO.viewAll
+    Ok(com.qa.view.logic.html.viewItems(results))
   }
 
   /**

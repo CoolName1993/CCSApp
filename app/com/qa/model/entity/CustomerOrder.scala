@@ -1,6 +1,6 @@
 package com.qa.model.entity
 
-import java.util.Date
+import java.time.LocalDate
 
 import com.qa.model.sql.Database
 import org.squeryl.KeyedEntity
@@ -19,8 +19,8 @@ import org.squeryl.dsl.{ManyToOne, OneToMany}
  * @author cboucher
  */
 case class CustomerOrder(id: Int,
-                         datePlaced: Date,
-                         dateShipped: Date,
+                         datePlaced: LocalDate,
+                         dateShipped: LocalDate,
                          isPaid: Boolean,
                          idAddress: Int,
                          idCustomerOrderStatus: Int,

@@ -44,7 +44,7 @@ class CustomerOrderController extends Controller {
     */
   def addOrderView = Action { implicit request =>
     Ok(com.qa.view.logic.html.addCustomerOrder(customerOrderForm))
-    NotImplemented // TODO Implement this
+    //NotImplemented // TODO Implement this
   }
 
   /**
