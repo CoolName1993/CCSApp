@@ -39,6 +39,14 @@ object ItemDAO extends MongoController with ReactiveMongoComponents {
     itemList.toArray
   }
 
+  def findByID(id: Int): Item = {
+    val query = BSONDocument(
+      "idItem" -> id)
+    val result = db[BSONCollection]("Item").find(query).one[Item]
+    val resultAsync = Await.result(result, 60.seconds)
+    resultAsync.get
+  }
+
   implicit object ItemBSONReader extends BSONDocumentReader[Item] {
     def read(document: BSONDocument): Item = {
       Item(

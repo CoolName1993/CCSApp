@@ -32,7 +32,9 @@ class ItemController extends Controller with MongoController with ReactiveMongoC
     * @return The HTML page of the selected item or an error page.
     */
   def viewByItemID(itemid: Int) = Action { implicit request =>
-    NotImplemented // TODO Implement this
+    val result = ItemDAO.findByID(itemid)
+    Ok(com.qa.view.logic.html.viewItem(result))
+    //NotImplemented // TODO Implement this
   }
 
   /**
